@@ -1,0 +1,78 @@
+# Render Blueprint — defines the backend Web Service.
+# After connecting this repo in Render, the dashboard will offer to create the
+# resources defined here. Set the env vars marked `sync: false` manually in
+# the Render dashboard after the first deploy.
+#
+# Frontend is deployed separately on Vercel (see DEPLOY.md).
+
+services:
+  - type: web
+    name: sheet-agent-api
+    runtime: node
+    region: oregon
+    plan: free
+    rootDir: .
+    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @sheet-agent/api build
+    startCommand: cd apps/api && node dist/main.js
+    healthCheckPath: /auth/me
+    autoDeploy: true
+    # Free tier does NOT include a persistent disk. Flows + lead-id dedup state
+    # is wiped on every redeploy/restart. To keep state, either:
+    #   - Upgrade to Starter ($7/mo) and uncomment the `disk` block below, OR
+    #   - Add a 1GB disk add-on ($1/mo) and uncomment the `disk` block.
+    # disk:
+    #   name: data
+    #   mountPath: /opt/render/project/src/apps/api/data
+    #   sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: 20.18.0
+      - key: API_PORT
+        value: 10000
+      - key: API_HOST
+        value: 0.0.0.0
+
+      # Set this to your Vercel URL after the frontend is deployed
+      - key: WEB_ORIGIN
+        sync: false
+
+      # All secrets below MUST be set manually in the Render dashboard
+      # (Service → Environment) — they are not committed to git.
+      - key: APP_ENC_KEY
+        sync: false
+      - key: OWNER_EMAIL
+        sync: false
+      - key: OWNER_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+
+      # Integration credentials
+      - key: META_SYSTEM_TOKEN
+        sync: false
+      - key: META_APP_ID
+        sync: false
+      - key: META_APP_SECRET
+        sync: false
+      - key: META_PAGE_ID
+        sync: false
+      - key: META_AD_ACCOUNT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: GOOGLE_REFRESH_TOKEN
+        sync: false
+      - key: WATI_API_ENDPOINT
+        sync: false
+      - key: WATI_ACCESS_TOKEN
+        sync: false
+
+      # Telegram alerts
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false

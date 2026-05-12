@@ -1,0 +1,15 @@
+{
+  "name": "sheet-agent",
+  "private": true,
+  "version": "0.1.0",
+  "packageManager": "pnpm@9.12.0",
+  "scripts": {
+    "dev": "pnpm -r --parallel --filter \"./apps/*\" run dev",
+    "dev:web": "pnpm --filter @sheet-agent/web dev",
+    "dev:api": "pnpm --filter @sheet-agent/api start:dev",
+    "build": "pnpm -r run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.6.3"
+  }
+}

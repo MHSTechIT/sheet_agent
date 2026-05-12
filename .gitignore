@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+.next/
+dist/
+build/
+.turbo/
+*.tsbuildinfo
+
+# Environment + secrets
+.env
+.env.*
+!.env.example
+
+# Runtime / user data — credentials are encrypted but flow data is not.
+# Don't commit your operational data to a public repo.
+data/
+apps/api/data/
+apps/web/data/
+
+# Logs
+*.log
+
+# OS / IDE noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Vercel local cache
+.vercel

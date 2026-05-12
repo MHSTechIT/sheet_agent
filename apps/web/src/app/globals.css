@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { @apply h-full; }
+  body {
+    @apply text-lavender-900 antialiased;
+    background-color: #f8e6ff;
+    /* Same gradient as the reference image at ~70% intensity (30%-white veil
+       layered over the vibrant purple→magenta→pink mix). */
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.30), rgba(255, 255, 255, 0.30)),
+      linear-gradient(180deg, #7B2CBF 0%, #B829E8 50%, #E91DCE 100%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  .pill {
+    @apply inline-flex items-center justify-center rounded-pill font-medium transition text-sm leading-none;
+  }
+  /* Liquid glossy primary button — exact vertical gradient
+     deep purple → bright magenta → hot pink (from reference image).
+     Liquid glossy treatment with inner highlights and outer glow. */
+  .pill-primary {
+    @apply pill text-white px-4 py-1.5 disabled:opacity-50;
+    background-image: linear-gradient(180deg, #7B2CBF 0%, #B829E8 50%, #E91DCE 100%);
+    box-shadow:
+      0 6px 18px rgba(184, 41, 232, 0.45),
+      0 0 0 1px rgba(255, 255, 255, 0.12) inset,
+      0 1px 0 rgba(255, 255, 255, 0.55) inset,
+      0 -2px 6px rgba(88, 28, 135, 0.50) inset;
+    transition: box-shadow 0.2s, transform 0.1s, filter 0.2s;
+  }
+  .pill-primary:not(:disabled):hover {
+    background-image: linear-gradient(180deg, #8E33D6 0%, #C831F5 50%, #F22DDA 100%);
+    box-shadow:
+      0 10px 28px rgba(184, 41, 232, 0.60),
+      0 0 0 1px rgba(255, 255, 255, 0.18) inset,
+      0 1px 0 rgba(255, 255, 255, 0.65) inset,
+      0 -2px 6px rgba(88, 28, 135, 0.50) inset;
+    filter: brightness(1.05);
+  }
+  .pill-primary:not(:disabled):active {
+    transform: translateY(1px);
+  }
+  .pill-ghost {
+    @apply pill bg-white/55 text-lavender-900 border border-white/60 px-3 py-1.5 hover:bg-white/80 shadow-[inset_0_1px_0_rgba(255,255,255,0.6)] backdrop-saturate-150;
+  }
+  .pill-soft {
+    @apply pill bg-lavender-100/80 text-lavender-800 px-3 py-1.5 hover:bg-lavender-200;
+  }
+
+  /* Liquid glossy card — semi-transparent diagonal gradient, white top
+     highlight, gentle purple-pink inner glow, soft outer halo. The body's
+     pastel gradient bleeds through to give the "glass over magenta" feel. */
+  .card {
+    @apply rounded-2xl border border-white/70 text-lavender-900;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.80) 0%,
+        rgba(253, 232, 255, 0.55) 45%,
+        rgba(255, 255, 255, 0.75) 100%
+      );
+    box-shadow:
+      0 14px 40px rgba(134, 25, 143, 0.15),
+      0 2px 8px rgba(134, 25, 143, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 0 24px rgba(245, 208, 254, 0.40),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.30);
+  }
+
+  .flow-pill {
+    @apply pill bg-white/70 border border-white/70 text-lavender-900 px-3 py-1.5 hover:bg-white hover:border-lavender-300 min-w-[140px] justify-between gap-1.5 text-xs shadow-[0_2px_8px_rgba(192,38,211,0.08),inset_0_1px_0_rgba(255,255,255,0.6)];
+  }
+
+  /* Solid white dropdown panel — high readability for menu lists. */
+  .dropdown-panel {
+    @apply rounded-2xl border border-lavender-200 bg-white text-lavender-900;
+    box-shadow:
+      0 16px 40px rgba(134, 25, 143, 0.18),
+      0 4px 12px rgba(134, 25, 143, 0.10);
+  }
+
+  /* Hide native scrollbars (still scrollable via wheel / drag / keyboard). */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  /* Glossy white pill — for headings or static badges that should look like
+     a tiny version of .card (matching the glassy aesthetic). */
+  .heading-pill {
+    @apply inline-flex items-center rounded-pill border border-white/80 text-lavender-900 px-4 py-1.5;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(255, 255, 255, 0.95) 0%,
+        rgba(253, 232, 255, 0.75) 100%
+      );
+    box-shadow:
+      0 6px 18px rgba(134, 25, 143, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95),
+      inset 0 -1px 0 rgba(245, 208, 254, 0.50);
+  }
+}
