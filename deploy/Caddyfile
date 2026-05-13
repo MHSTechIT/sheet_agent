@@ -1,0 +1,42 @@
+# Caddy 2 reverse proxy with automatic HTTPS via Let's Encrypt.
+# Replace `api.yourdomain.com` with your actual domain (or sslip.io for IP-based).
+#
+# Install: sudo cp deploy/Caddyfile /etc/caddy/Caddyfile
+# Reload:  sudo systemctl reload caddy
+#
+# If you don't have a domain, use a free DuckDNS / sslip.io subdomain:
+#   123.45.67.89.sslip.io      (resolves to 123.45.67.89 automatically)
+#   yourname.duckdns.org       (free, requires account)
+
+api.yourdomain.com {
+    # Forward everything (HTTP + WebSocket) to the local Node process on 4000.
+    reverse_proxy localhost:4000 {
+        # Pass through real client IP so the API logs / rate-limit see it.
+        header_up X-Real-IP {remote_host}
+        header_up X-Forwarded-For {remote_host}
+        header_up X-Forwarded-Proto {scheme}
+    }
+
+    # Enable gzip/zstd compression.
+    encode zstd gzip
+
+    # Sensible security headers. Caddy already enforces HTTPS automatically.
+    header {
+        Strict-Transport-Security "max-age=31536000; includeSubDomains"
+        X-Content-Type-Options "nosniff"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        # Remove identifying headers.
+        -Server
+    }
+
+    # Larger body cap so big WATI template syncs don't get cut.
+    request_body {
+        max_size 10MB
+    }
+
+    # Access log → systemd journal (view with `journalctl -u caddy -f`).
+    log {
+        output stdout
+        format console
+    }
+}
