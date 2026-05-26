@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { signOut, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
-import { RefreshCw, LogOut, Plus, Sparkles } from 'lucide-react';
+import { RefreshCw, LogOut, Plus, FileSpreadsheet } from 'lucide-react';
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -32,7 +32,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         <header className="flex items-center justify-between mb-6 flex-wrap gap-3">
           <Link href="/" className="flex items-center gap-2 shrink-0">
             <div className="grid place-items-center size-9 rounded-2xl bg-gradient-to-br from-coral-400 to-coral-600 text-white shadow-tile">
-              <Sparkles className="size-5" />
+              <FileSpreadsheet className="size-5" />
             </div>
             <span className="font-semibold tracking-tight">Sheet Agent</span>
           </Link>
@@ -65,20 +65,19 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             >
               <RefreshCw className="size-4" />
             </button>
+            {/* Avatar = sign-out trigger. Shows initial at rest, swaps to a
+                logout icon on hover so the action is discoverable. */}
             <button
               onClick={() => signOut({ callbackUrl: '/login' })}
-              className="pill-ghost !px-2.5"
-              title="Sign out"
+              className="group relative grid place-items-center size-9 rounded-full bg-gradient-to-br from-coral-400 to-coral-600 text-white text-sm font-semibold shadow-tile ml-1 transition hover:from-coral-500 hover:to-coral-700 hover:shadow-fab"
+              title={`Sign out${session?.user?.email ? ` (${session.user.email})` : ''}`}
               aria-label="Sign out"
             >
-              <LogOut className="size-4" />
+              <span className="transition-opacity group-hover:opacity-0">
+                {userInitial}
+              </span>
+              <LogOut className="size-4 absolute opacity-0 transition-opacity group-hover:opacity-100" />
             </button>
-            <div
-              className="grid place-items-center size-9 rounded-full bg-gradient-to-br from-coral-400 to-coral-600 text-white text-sm font-semibold shadow-tile ml-1"
-              title={session?.user?.email ?? undefined}
-            >
-              {userInitial}
-            </div>
           </div>
         </header>
 
@@ -93,7 +92,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         title="New automation"
         aria-label="New automation"
       >
-        <Sparkles className="size-6" />
+        <FileSpreadsheet className="size-6" />
       </button>
     </div>
   );

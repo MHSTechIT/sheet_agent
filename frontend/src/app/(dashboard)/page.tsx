@@ -128,17 +128,6 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-7">
-      {/* Title */}
-      <div className="flex items-end justify-between">
-        <div>
-          <h1 className="text-3xl font-semibold tracking-tight">Dashboard</h1>
-          <p className="text-sm text-lavender-700 mt-1">
-            {stats.flows} {stats.flows === 1 ? 'automation' : 'automations'} ·{' '}
-            <span className="font-medium text-lavender-900">{stats.totalLeads}</span> leads total
-          </p>
-        </div>
-      </div>
-
       {/* Gradient tile row */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Tile
@@ -204,15 +193,23 @@ function Tile({
 }) {
   const cls = variant === 'coral' ? 'tile-coral' : variant === 'grape' ? 'tile-grape' : 'tile-sky';
   return (
-    <div className={`tile tile-shine ${cls}`}>
-      <div className="flex items-center justify-between mb-8">
-        <div className="grid place-items-center size-9 rounded-full bg-white/20 backdrop-blur-sm">
+    <div className={`tile tile-shine ${cls} !p-3.5`}>
+      <div className="flex items-center gap-3">
+        <div className="grid place-items-center size-9 rounded-full bg-white/20 backdrop-blur-sm shrink-0">
           {icon}
         </div>
+        <div className="min-w-0 flex-1">
+          <div className="text-[10px] uppercase tracking-wide opacity-90 truncate">
+            {caption}
+          </div>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-2xl font-semibold tabular-nums leading-tight">
+              {primary}
+            </span>
+            <span className="text-[11px] opacity-80 truncate">{secondary}</span>
+          </div>
+        </div>
       </div>
-      <div className="text-xs uppercase tracking-wide opacity-90">{caption}</div>
-      <div className="mt-1 text-3xl font-semibold tabular-nums">{primary}</div>
-      <div className="mt-0.5 text-xs opacity-80">{secondary}</div>
     </div>
   );
 }

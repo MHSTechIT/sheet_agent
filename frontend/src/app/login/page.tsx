@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { Sparkles } from 'lucide-react';
+import { FileSpreadsheet } from 'lucide-react';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function LoginPage() {
         <form onSubmit={onSubmit} className="space-y-6">
           <div className="flex items-center gap-2">
             <div className="grid place-items-center size-10 rounded-2xl bg-gradient-to-br from-coral-400 to-coral-600 text-white shadow-tile">
-              <Sparkles className="size-5" />
+              <FileSpreadsheet className="size-5" />
             </div>
             <div>
               <h1 className="text-xl font-semibold tracking-tight">Sheet Agent</h1>
