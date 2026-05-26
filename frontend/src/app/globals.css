@@ -1,0 +1,137 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html, body { @apply h-full; }
+  body {
+    @apply text-lavender-900 antialiased;
+    /* Soft pink–cream page background, blurred orbs to mimic the mockup's
+       gradient halo behind the rounded shell card. */
+    background-color: #F4E1E6;
+    background-image:
+      radial-gradient(60% 50% at 20% 30%, rgba(255, 188, 205, 0.55) 0%, rgba(255, 188, 205, 0) 70%),
+      radial-gradient(50% 50% at 80% 70%, rgba(255, 220, 200, 0.50) 0%, rgba(255, 220, 200, 0) 70%),
+      linear-gradient(180deg, #F7E3E8 0%, #F1D9DF 100%);
+    background-attachment: fixed;
+  }
+}
+
+@layer components {
+  /* ------------------------------------------------------------------
+     Outer "shell" — the big rounded white card that wraps the whole
+     dashboard in the mockup. Inside it we lay out sidebar + content.
+     ------------------------------------------------------------------ */
+  .shell {
+    @apply rounded-[2rem] bg-white/85 backdrop-blur-xl border border-white;
+    box-shadow:
+      0 30px 80px rgba(190, 100, 130, 0.18),
+      0 8px 24px rgba(190, 100, 130, 0.08),
+      inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  }
+
+  /* Pills & buttons --------------------------------------------------- */
+  .pill {
+    @apply inline-flex items-center justify-center rounded-pill font-medium transition text-sm leading-none;
+  }
+  /* Primary CTA — coral-pink gradient (replaces the old purple). */
+  .pill-primary {
+    @apply pill text-white px-4 py-2 disabled:opacity-50;
+    background-image: linear-gradient(180deg, #FF7E94 0%, #F75271 100%);
+    box-shadow:
+      0 6px 18px rgba(247, 82, 113, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.55);
+    transition: box-shadow 0.2s, transform 0.1s, filter 0.2s;
+  }
+  .pill-primary:not(:disabled):hover {
+    filter: brightness(1.05);
+    box-shadow: 0 10px 26px rgba(247, 82, 113, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+  .pill-primary:not(:disabled):active { transform: translateY(1px); }
+
+  /* "Add invoice"-style: white pill with subtle border and shadow. */
+  .pill-ghost {
+    @apply pill bg-white text-lavender-900 border border-lavender-100 px-3.5 py-2 hover:bg-lavender-50;
+    box-shadow: 0 2px 8px rgba(190, 100, 130, 0.08);
+  }
+  /* Soft pink chip pill — used for inactive tabs and small chips. */
+  .pill-soft {
+    @apply pill bg-lavender-50 text-lavender-700 px-3.5 py-1.5 hover:bg-lavender-100;
+  }
+  /* Active tab — coral background with white text (mockup top pills). */
+  .pill-tab-active {
+    @apply pill text-white px-4 py-2;
+    background-image: linear-gradient(180deg, #FF7E94 0%, #F75271 100%);
+    box-shadow: 0 6px 14px rgba(247, 82, 113, 0.30);
+  }
+  .pill-tab {
+    @apply pill bg-lavender-50 text-lavender-700 px-4 py-2 hover:bg-lavender-100;
+  }
+
+  /* Card — clean white surface used inside the shell. */
+  .card {
+    @apply rounded-3xl bg-white border border-lavender-100 text-lavender-900;
+    box-shadow: 0 6px 18px rgba(190, 100, 130, 0.06);
+  }
+
+  /* Compact white pill used for sheet/form/template selectors. */
+  .flow-pill {
+    @apply pill bg-white border border-lavender-100 text-lavender-900 px-3 py-1.5 hover:border-lavender-200 min-w-[140px] justify-between gap-1.5 text-xs;
+    box-shadow: 0 2px 8px rgba(190, 100, 130, 0.06);
+  }
+
+  /* Solid white dropdown panel. */
+  .dropdown-panel {
+    @apply rounded-2xl border border-lavender-100 bg-white text-lavender-900;
+    box-shadow:
+      0 16px 40px rgba(190, 100, 130, 0.20),
+      0 4px 12px rgba(190, 100, 130, 0.10);
+  }
+
+  /* Heading container (header pill grouping, kept for back-compat). */
+  .heading-pill {
+    @apply inline-flex items-center rounded-pill bg-white border border-lavender-100 px-1 py-1 text-lavender-900;
+    box-shadow: 0 2px 8px rgba(190, 100, 130, 0.08);
+  }
+
+  /* Gradient stat tiles (3-up row from the mockup). */
+  .tile {
+    @apply relative rounded-[1.75rem] text-white p-5 overflow-hidden;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  }
+  .tile-coral   { background-image: linear-gradient(160deg, #FF8A8A 0%, #F25757 100%); }
+  .tile-grape   { background-image: linear-gradient(160deg, #A78BFA 0%, #7C3AED 100%); }
+  .tile-sky     { background-image: linear-gradient(160deg, #7CC4ED 0%, #3F95C9 100%); }
+  .tile-shine::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(80% 60% at 30% 10%, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0) 60%);
+    pointer-events: none;
+  }
+
+  /* Floating action button (bottom-right sparkle). */
+  .fab {
+    @apply fixed bottom-6 right-6 grid place-items-center rounded-full text-white;
+    width: 60px; height: 60px;
+    background-image: linear-gradient(160deg, #FF8FAB 0%, #F75271 60%, #C026D3 100%);
+    box-shadow: 0 14px 32px rgba(247, 82, 113, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    transition: transform 0.15s, box-shadow 0.2s;
+  }
+  .fab:hover { transform: translateY(-1px); box-shadow: 0 18px 40px rgba(247, 82, 113, 0.55); }
+
+  /* Sidebar quick-menu rounded button. */
+  .qicon {
+    @apply grid place-items-center rounded-2xl bg-white border border-lavender-100 text-lavender-700 hover:text-lavender-900 hover:border-lavender-200 transition;
+    width: 56px; height: 56px;
+    box-shadow: 0 2px 8px rgba(190, 100, 130, 0.06);
+  }
+  .qicon-active {
+    @apply text-white border-transparent;
+    background-image: linear-gradient(160deg, #FF8FAB 0%, #F75271 100%);
+    box-shadow: 0 8px 18px rgba(247, 82, 113, 0.35);
+  }
+
+  /* Hide native scrollbars. */
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; width: 0; height: 0; }
+}

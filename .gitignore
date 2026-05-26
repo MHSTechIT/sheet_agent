@@ -17,8 +17,8 @@ build/
 # Runtime / user data — credentials are encrypted but flow data is not.
 # Don't commit your operational data to a public repo.
 data/
-apps/api/data/
-apps/web/data/
+backend/data/
+frontend/data/
 
 # Logs
 *.log

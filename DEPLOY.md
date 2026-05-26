@@ -4,8 +4,8 @@ This app is split into two services:
 
 | Service | Where | Why |
 |---|---|---|
-| **`apps/web`** (Next.js) | Vercel | Free tier, perfect for Next.js, global edge |
-| **`apps/api`** (NestJS) | Render | Needs a persistent 24/7 process for the 30-second poller + Socket.IO; Vercel can't host this |
+| **`frontend/`** (Next.js) | Vercel | Free tier, perfect for Next.js, global edge |
+| **`backend/`** (NestJS) | Render | Needs a persistent 24/7 process for the 30-second poller + Socket.IO; Vercel can't host this |
 
 ---
 
@@ -43,7 +43,7 @@ This app is split into two services:
      ```
    - **Start Command:**
      ```
-     cd apps/api && node dist/main.js
+     cd backend && node dist/main.js
      ```
    - **Instance Type:** `Free`
 5. Scroll down to **Environment** and add **every** variable from `.env`. Set `API_PORT=10000` (Render sets this automatically — but be explicit). Set `WEB_ORIGIN` to a placeholder for now (e.g. `https://localhost`); we'll update it after Vercel is up.
@@ -66,7 +66,7 @@ You should also receive a 🟢 startup ping in your Telegram bot chat (`@MhsShee
    - **Fix (paid):** upgrade to Render Starter ($7/mo) — no spin-down.
 
 2. **Disk resets on every deploy.** Your `data/flows.json`, `data/templates.json`, `data/lead-ids.json` are wiped on every redeploy. Your flows and lead-dedup state vanish.
-   - **Fix ($1/mo):** in Render dashboard → your service → Disks → Add a `1 GB` disk mounted at `/opt/render/project/src/apps/api/data`. Survives deploys forever.
+   - **Fix ($1/mo):** in Render dashboard → your service → Disks → Add a `1 GB` disk mounted at `/opt/render/project/src/backend/data`. Survives deploys forever.
    - **Fix ($0):** accept the loss. Recreate flows manually after each deploy. Not viable in production.
    - **Fix (paid):** Starter plan includes a persistent disk by default.
 
@@ -80,7 +80,7 @@ You should also receive a 🟢 startup ping in your Telegram bot chat (`@MhsShee
 2. **Add New…** → **Project** → **Import Git Repository** → select your repo.
 3. Settings:
    - **Framework Preset:** `Next.js` (auto-detected)
-   - **Root Directory:** `apps/web`
+   - **Root Directory:** `frontend`
    - **Build Command:** *(leave default — Vercel uses what's in `vercel.json`)*
    - **Install Command:** *(leave default)*
 4. **Environment Variables** — add all three:
@@ -122,7 +122,7 @@ If you chose **Render free without the $1 disk add-on**, the migrated `data/` fi
 - `templates.json` will be empty → save Settings (or click Validate) once; this triggers a WATI sync and re-populates templates
 - `lead-ids.json` will be empty → leads from the past will not be re-ingested (good); new leads going forward will be processed
 
-If you chose **Render with persistent disk**, you can `scp`/`git scp` your local `apps/api/data/` files into the disk after first deploy. Easiest: SSH into the Render shell and `curl` the files from somewhere, or use the file upload UI.
+If you chose **Render with persistent disk**, you can `scp`/`git scp` your local `backend/data/` files into the disk after first deploy. Easiest: SSH into the Render shell and `curl` the files from somewhere, or use the file upload UI.
 
 ---
 

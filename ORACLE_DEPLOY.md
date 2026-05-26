@@ -252,7 +252,7 @@ pm2 restart sheet-agent-api
 Your `data/` directory contains all flows + lead-dedup state. To back it up:
 
 ```bash
-cd ~/sheet-agent/apps/api
+cd ~/sheet-agent/backend
 tar -czf ~/sheet-agent-backup-$(date +%F).tar.gz data/
 ```
 

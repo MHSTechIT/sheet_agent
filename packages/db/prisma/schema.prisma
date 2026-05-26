@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Settings {
+  id String @id @default(cuid())
+
+  metaSystemToken String
+  metaAppId       String
+  metaAppSecret   String
+  metaPageId      String
+  metaAdAccountId String
+
+  googleClientId     String
+  googleClientSecret String
+  googleRefreshToken String
+
+  watiApiEndpoint  String
+  watiAccessToken  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Flow {
+  id String @id @default(cuid())
+
+  metaFormId   String?
+  metaFormName String?
+
+  sheetUrl      String?
+  googleSheetId String?
+  sheetHeaders  Json?
+
+  templateId   String?
+  templateName String?
+
+  status String @default("draft")
+
+  totalLeads  Int       @default(0)
+  todayLeads  Int       @default(0)
+  lastSyncAt  DateTime?
+  lastPolledAt DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  leads Lead[]
+  logs  AutomationLog[]
+}
+
+model Lead {
+  id String @id @default(cuid())
+
+  flowId String
+  flow   Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade)
+
+  leadId String
+
+  name  String?
+  phone String?
+  email String?
+
+  rawData Json
+
+  syncStatus String @default("pending")
+
+  createdAt DateTime @default(now())
+
+  @@unique([flowId, leadId])
+  @@index([flowId])
+  @@index([syncStatus])
+}
+
+model Template {
+  id String @id @default(cuid())
+
+  templateId String @unique
+  name       String
+  language   String
+  status     String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AutomationLog {
+  id String @id @default(cuid())
+
+  flowId String
+  flow   Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade)
+
+  status  String
+  message String
+
+  payload Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([flowId, createdAt])
+}

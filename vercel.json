@@ -2,8 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "corepack enable && pnpm install --frozen-lockfile && pnpm --filter @sheet-agent/web build",
   "installCommand": "echo skip — handled by buildCommand",
-  "outputDirectory": "apps/web/.next",
+  "outputDirectory": "frontend/.next",
   "framework": "nextjs",
-  "ignoreCommand": "git diff HEAD^ HEAD --quiet ./apps/web ./packages",
+  "ignoreCommand": "git diff HEAD^ HEAD --quiet ./frontend ./packages",
   "regions": ["bom1"]
 }

@@ -13,7 +13,7 @@ services:
     plan: free
     rootDir: .
     buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @sheet-agent/api build
-    startCommand: cd apps/api && node dist/main.js
+    startCommand: cd backend && node dist/main.js
     healthCheckPath: /auth/me
     autoDeploy: true
     # Free tier does NOT include a persistent disk. Flows + lead-id dedup state
@@ -22,7 +22,7 @@ services:
     #   - Add a 1GB disk add-on ($1/mo) and uncomment the `disk` block.
     # disk:
     #   name: data
-    #   mountPath: /opt/render/project/src/apps/api/data
+    #   mountPath: /opt/render/project/src/backend/data
     #   sizeGB: 1
     envVars:
       - key: NODE_VERSION

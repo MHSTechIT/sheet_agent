@@ -9,7 +9,7 @@ module.exports = {
   apps: [
     {
       name: 'sheet-agent-api',
-      cwd: './apps/api',
+      cwd: './backend',
       script: 'dist/main.js',
       instances: 1,
       exec_mode: 'fork',

@@ -16,9 +16,8 @@ Each new Meta lead is captured via webhook, persisted in Postgres, appended to a
 
 ```
 sheet agent/
-├── apps/
-│   ├── web/              # Next.js dashboard + settings UI
-│   └── api/              # NestJS REST + webhooks + Socket.IO + pg-boss workers
+├── frontend/             # Next.js dashboard + settings UI
+├── backend/              # NestJS REST + webhooks + Socket.IO + pg-boss workers
 ├── packages/
 │   ├── db/               # Prisma schema + client
 │   ├── crypto/           # AES-256-GCM helpers
@@ -49,7 +48,7 @@ Copy `.env.example` to `.env` at the repo root, then fill in:
 copy .env.example .env
 ```
 
-Both apps and the Prisma CLI read from this single root `.env`. The repo currently keeps three copies in sync (`.env`, `apps/api/.env`, `apps/web/.env.local`, `packages/db/.env`) — when you change one, copy it to the others.
+Both apps and the Prisma CLI read from this single root `.env`. The repo currently keeps copies in sync (`.env`, `backend/.env`, `frontend/.env.local`, `packages/db/.env`) — when you change one, copy it to the others.
 
 Important values:
 
