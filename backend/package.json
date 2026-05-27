@@ -33,9 +33,9 @@
     "googleapis": "^144.0.0",
     "socket.io": "^4.8.1",
     "@prisma/client": "^5.22.0",
-    "@sheet-agent/db": "workspace:*",
-    "@sheet-agent/crypto": "workspace:*",
-    "@sheet-agent/types": "workspace:*"
+    "@sheet-agent/db": "*",
+    "@sheet-agent/crypto": "*",
+    "@sheet-agent/types": "*"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.4.7",

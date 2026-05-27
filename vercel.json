@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "corepack enable && pnpm install --frozen-lockfile && pnpm --filter @sheet-agent/web build",
+  "buildCommand": "npm ci && npm run build -w @sheet-agent/web",
   "installCommand": "echo skip — handled by buildCommand",
   "outputDirectory": "frontend/.next",
   "framework": "nextjs",

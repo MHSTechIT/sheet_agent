@@ -12,7 +12,7 @@ services:
     region: oregon
     plan: free
     rootDir: .
-    buildCommand: corepack enable && pnpm install --frozen-lockfile && pnpm --filter @sheet-agent/api build
+    buildCommand: npm ci && npm run build -w @sheet-agent/api
     startCommand: cd backend && node dist/main.js
     healthCheckPath: /auth/me
     autoDeploy: true

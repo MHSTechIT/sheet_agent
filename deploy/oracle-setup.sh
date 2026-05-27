@@ -28,8 +28,8 @@ fi
 echo "    node: $(node -v)"
 echo "    npm:  $(npm -v)"
 
-echo "==> Installing pnpm globally"
-sudo npm install -g pnpm pm2
+echo "==> Installing PM2 globally"
+sudo npm install -g pm2
 
 echo "==> Installing Caddy 2 (reverse proxy with auto-HTTPS)"
 if ! command -v caddy &>/dev/null; then
@@ -65,8 +65,8 @@ echo "==> Done. Next steps:"
 echo "  1. git clone https://github.com/hariharanannamalairaman-cell/sheet-agent.git"
 echo "  2. cd sheet-agent"
 echo "  3. cp .env.example .env  &&  edit .env  (paste your secrets)"
-echo "  4. pnpm install"
-echo "  5. pnpm --filter @sheet-agent/api build"
+echo "  4. npm ci"
+echo "  5. npm run build -w @sheet-agent/api"
 echo "  6. pm2 start deploy/ecosystem.config.cjs"
 echo "  7. pm2 save  &&  pm2 startup  (run the sudo cmd it prints)"
 echo "  8. sudo cp deploy/Caddyfile /etc/caddy/Caddyfile  (edit domain first)"

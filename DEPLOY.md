@@ -39,7 +39,7 @@ This app is split into two services:
    - **Runtime:** `Node`
    - **Build Command:**
      ```
-     corepack enable && pnpm install --frozen-lockfile && pnpm --filter @sheet-agent/api build
+     npm ci && npm run build -w @sheet-agent/api
      ```
    - **Start Command:**
      ```
@@ -212,7 +212,7 @@ Pick the row that matches your budget; everything else is identical.
 
 | Symptom | Likely cause | Fix |
 |---|---|---|
-| Vercel build fails with "Cannot find module @sheet-agent/types" | Vercel didn't run from monorepo root | Confirm `vercel.json` is at repo root and `installCommand` runs `pnpm install` at root |
+| Vercel build fails with "Cannot find module @sheet-agent/types" | Vercel didn't run from monorepo root | Confirm `vercel.json` is at repo root and `buildCommand` runs `npm ci` at root |
 | Frontend can't reach backend, CORS error in browser console | `WEB_ORIGIN` mismatch on Render | Set Render's `WEB_ORIGIN` to the exact Vercel URL (no trailing slash) |
 | Telegram alerts not arriving | Bot not opted-in or wrong chat_id | Send `/start` to `@MhsSheet_bot` from the Telegram account whose user_id is `TELEGRAM_CHAT_ID` |
 | Login fails on production | `JWT_SECRET` mismatch between Render and Vercel? | Vercel doesn't need `JWT_SECRET` — only `NEXTAUTH_SECRET`. Confirm Render has `JWT_SECRET` set |

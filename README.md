@@ -30,14 +30,14 @@ sheet agent/
 ### 0. Prerequisites
 
 - Node.js 20+
-- pnpm 9+ (`npm i -g pnpm`)
+- npm 10+ (ships with Node.js)
 - A Supabase project (Settings → Database → Connection strings)
 - ngrok (for exposing the Meta webhook in dev)
 
 ### 1. Install
 
 ```powershell
-pnpm install
+npm install
 ```
 
 ### 2. Environment
@@ -67,19 +67,19 @@ Important values:
 Generate the Prisma client and push the schema to Supabase:
 
 ```powershell
-pnpm db:generate
-pnpm db:push
+npm run db:generate
+npm run db:push
 ```
 
 (`pgboss` schema is auto-provisioned when the API first starts — no manual step required.)
 
 ### 4. Run
 
-In two terminals (or use `pnpm dev` to run both in parallel):
+In two terminals (or use `npm run dev` to run both in parallel):
 
 ```powershell
-pnpm dev:api   # NestJS on http://localhost:4000
-pnpm dev:web   # Next.js on http://localhost:3000
+npm run dev:api   # NestJS on http://localhost:4000
+npm run dev:web   # Next.js on http://localhost:3005
 ```
 
 Open http://localhost:3000 and sign in with the owner credentials from `.env`.
@@ -151,20 +151,19 @@ You provide a long-lived OAuth refresh token. The simplest way to get one:
 
 ## Troubleshooting
 
-- **`Cannot find module '@prisma/client'`** — run `pnpm db:generate`.
-- **`P1000: Authentication failed`** during `pnpm db:push` — your Supabase DB password contains a character that needs URL-encoding (`@` → `%40`, `:` → `%3A`, etc.). Easiest fix: reset the password in Supabase to alphanumeric only.
+- **`Cannot find module '@prisma/client'`** — run `npm run db:generate`.
+- **`P1000: Authentication failed`** during `npm run db:push` — your Supabase DB password contains a character that needs URL-encoding (`@` → `%40`, `:` → `%3A`, etc.). Easiest fix: reset the password in Supabase to alphanumeric only.
 - **Meta validation fails with `(#10) Application does not have permission for this action`** — the system user token needs `leads_retrieval`, `pages_read_engagement`, and `pages_manage_metadata` scopes on the page.
 - **Sheet validation fails** — confirm the OAuth client has the Sheets API enabled and the refresh token was issued for the `spreadsheets` scope.
 - **WATI 401** — the access token usually already includes `Bearer `; the API tolerates both formats.
 
 ## Scripts
 
-| Command           | What it does                                |
-| ----------------- | ------------------------------------------- |
-| `pnpm dev`        | Run web + api in parallel                   |
-| `pnpm dev:web`    | Next.js only                                |
-| `pnpm dev:api`    | NestJS only (with watch)                    |
-| `pnpm db:generate`| Generate Prisma client                      |
-| `pnpm db:push`    | Push schema to Supabase (no migration file) |
-| `pnpm db:migrate` | Create + apply a migration                  |
-| `pnpm db:studio`  | Open Prisma Studio                          |
+| Command               | What it does                                |
+| --------------------- | ------------------------------------------- |
+| `npm run dev`         | Run web + api in parallel                   |
+| `npm run dev:web`     | Next.js only                                |
+| `npm run dev:api`     | NestJS only (with watch)                    |
+| `npm run db:generate` | Generate Prisma client                      |
+| `npm run db:push`     | Push schema to Supabase (no migration file) |
+| `npm run db:studio`   | Open Prisma Studio                          |

@@ -101,7 +101,7 @@ Run the one-shot setup script:
 curl -fsSL https://raw.githubusercontent.com/hariharanannamalairaman-cell/sheet-agent/main/deploy/oracle-setup.sh | bash
 ```
 
-This installs Node 20, pnpm, PM2, Caddy, and opens the firewall. Takes 3-5 minutes.
+This installs Node 20, npm, PM2, Caddy, and opens the firewall. Takes 3-5 minutes.
 
 ---
 
@@ -118,8 +118,8 @@ nano .env
 # Paste every value from your local .env. Save with Ctrl+O, Enter, Ctrl+X.
 
 # Build the API
-pnpm install --frozen-lockfile
-pnpm --filter @sheet-agent/api build
+npm ci
+npm run build -w @sheet-agent/api
 
 # Start under PM2 (auto-restart on crash + reboot)
 pm2 start deploy/ecosystem.config.cjs
@@ -242,8 +242,8 @@ pm2 restart sheet-agent-api
 ```bash
 cd ~/sheet-agent
 git pull
-pnpm install --frozen-lockfile
-pnpm --filter @sheet-agent/api build
+npm ci
+npm run build -w @sheet-agent/api
 pm2 restart sheet-agent-api
 ```
 
